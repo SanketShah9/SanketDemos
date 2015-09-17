@@ -499,6 +499,19 @@ NSString *DocumentsDirectoryPath() {NSArray *paths = NSSearchPathForDirectoriesI
                                                                     NSForegroundColorAttributeName:[UIColor blackColor]}];
 }
 
++(CGFloat)heightForTextview:(CGFloat)width Attributedtext:(NSAttributedString*)str{
+    @autoreleasepool {
+        UITextView *textView = [[UITextView alloc] init];
+        textView.textContainerInset = UIEdgeInsetsZero;
+        textView.textContainer.lineFragmentPadding = 0;
+        textView.textContainerInset = UIEdgeInsetsZero;
+        [textView setAttributedText:str];
+        CGSize sizeText = [textView sizeThatFits:CGSizeMake(width, FLT_MAX)];
+        return ceilf(sizeText.height);
+    }
+}
+
+
 + (CGSize)findHeightForText:(NSString *)text havingWidth:(CGFloat)widthValue andFont:(UIFont *)font {
     //CGFloat result = font.pointSize+4;
     CGSize size;

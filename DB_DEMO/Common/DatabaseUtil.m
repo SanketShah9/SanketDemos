@@ -18,6 +18,30 @@ static DatabaseUtil *databaseUtil = nil;
     return databaseUtil;
 }
 
+- (NSMutableArray *)executeSelectQuery:(NSString *)query
+{
+    NSMutableArray *arrResultDict = [[NSMutableArray alloc] init];
+    
+    @try {
+        [APPDELEGATE openDb];
+        
+        FMResultSet *rs = [APPDELEGATE.db executeQuery:query];
+        
+        while ([rs next]) {
+            [arrResultDict addObject:[[NSMutableDictionary alloc] initWithDictionary:[rs resultDict]]];
+        }
+    }
+    @catch (NSException *exception) {
+        ZDebug(@"executeSelectQuery=exception==%@",exception );
+    }
+    @finally {
+        [APPDELEGATE closeDb];
+    }
+    return arrResultDict;
+}
+
+
+
 - (NSString *)formateDictToValue:(NSMutableDictionary *)dictValue
 {
     dictValue = [self trimDataWithDict:dictValue];
@@ -118,7 +142,7 @@ static DatabaseUtil *databaseUtil = nil;
 {
     BOOL queryStatus = FALSE;
     int lastRowId;
-    [APPDELEGATE openDb];
+    //[APPDELEGATE openDb];
     
     queryStatus = [APPDELEGATE.db executeUpdate:query];
     
@@ -129,7 +153,7 @@ static DatabaseUtil *databaseUtil = nil;
     //    lastRowId = [APPDELEGATE.db lastInsertRowId];
     lastRowId = (int)[APPDELEGATE.db lastInsertRowId];
     
-    [APPDELEGATE closeDb];
+    //[APPDELEGATE closeDb];
     
     return lastRowId;
 }
@@ -175,6 +199,90 @@ static DatabaseUtil *databaseUtil = nil;
         ZDebug(@"nop query ==%@",strQuery); //
     
     return queryStatus;
+}
+
+- (BOOL)updateDataWithDictionary:(NSMutableDictionary *)dictData tableName:(NSString *)tblName andRefrenceId:(int)refrenceId andRefrenceKey:(NSString *)refrenceKey
+{
+    BOOL queryStatus = FALSE;
+    
+    if ([dictData valueForKey:@"LocalId"] != Nil) {
+        [dictData removeObjectForKey:@"LocalId"];
+    }
+    
+    NSString *query = [NSString stringWithFormat:@"UPDATE %@ SET %@ WHERE %@ = '%d'",tblName, [self formateDictForUpdate:dictData],refrenceKey, refrenceId];
+    
+    queryStatus = [self executeUpdateQuery:query];
+    
+    return queryStatus;
+}
+
+- (BOOL)searchDataFromTable:(NSString *)tblName searchtext:(NSString *)txtSearch searchKey:(NSString *)searchKey
+{
+    NSString *QUERY_SELECT_INSTALLATION = [NSString stringWithFormat:@"SELECT * FROM  %@  WHERE  %@ like '%@'",tblName,searchKey,txtSearch];
+    
+    NSMutableArray *arrData = [self executeSelectQuery:QUERY_SELECT_INSTALLATION];
+    
+    if (arrData.count > 0) {
+        return TRUE;
+    }else
+        return FALSE;
+}
+
+- (BOOL)searchDataFromTable:(NSString *)tblName where:(NSString *)txtWhere
+{
+    NSString *QUERY_SELECT_INSTALLATION = [NSString stringWithFormat:@"SELECT * FROM  %@  WHERE  %@",tblName,txtWhere];
+    
+    NSMutableArray *arrData = [self executeSelectQuery:QUERY_SELECT_INSTALLATION];
+    
+    if (arrData.count > 0) {
+        return TRUE;
+    }else
+        return FALSE;
+}
+
+- (BOOL)deleteDataFromTable:(NSString *)tblName andRefrenceId:(int)refrenceId andRefrenceKey:(NSString *)refrenceKey
+{
+    BOOL isDeleted = FALSE;
+    NSString *query = [NSString stringWithFormat: @"Delete FROM %@ WHERE %@ ='%d'",tblName,refrenceKey,refrenceId];
+    
+    isDeleted = [self executeUpdateQuery:query];
+    return isDeleted;
+}
+
+- (BOOL)deleteDataFromTable:(NSString *)tblName
+{
+    BOOL isDeleted = FALSE;
+    NSString *query = [NSString stringWithFormat: @"Delete FROM %@",tblName];
+    
+    isDeleted = [self executeUpdateQuery:query];
+    return isDeleted;
+}
+
+- (BOOL)deleteDataFromTable:(NSString *)tblName AndQuery:(NSString *)strQuery
+{
+    BOOL isDeleted = FALSE;
+    NSString *query = [NSString stringWithFormat: @"Delete FROM %@ %@",tblName,strQuery];
+    
+    isDeleted = [self executeUpdateQuery:query];
+    return isDeleted;
+}
+
+- (NSMutableArray *)selectDataFromTable:(NSString *)tblName whereQuery:(NSString *)whereQuery
+{
+    NSString *QUERY_SELECT_INSTALLATION = [NSString stringWithFormat:@"SELECT * FROM  %@ %@",tblName,whereQuery];
+    
+    NSMutableArray *arrData = [self executeSelectQuery:QUERY_SELECT_INSTALLATION];
+    
+    return arrData;
+}
+
+- (NSMutableArray *)selectDatawhereQuery:(NSString *)whereQuery
+{
+    NSString *QUERY_SELECT_INSTALLATION = [NSString stringWithFormat:@"%@",whereQuery];
+    
+    NSMutableArray *arrData = [self executeSelectQuery:QUERY_SELECT_INSTALLATION];
+    
+    return arrData;
 }
 
 
@@ -905,102 +1013,76 @@ static DatabaseUtil *databaseUtil = nil;
 //    return queryStatus;
 //}
 //
-//- (NSMutableDictionary *)trimDataWithDict:(NSMutableDictionary *)dictData{
+//- (void)updateClaimStatus:(NSString *)strClaimId{
 //    
-//    [dictData enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL* stop) {
+//    if (strClaimId != Nil && strClaimId.length > 0) {
 //        
-//        if ([value isKindOfClass:[NSNull class]]) {
-//            //            [dictData setObject:@"" forKey:key];
-//        }else{
-//            NSString *strNew = [[NSString stringWithFormat:@"%@",value] stringByReplacingOccurrencesOfString:@"'" withString:@"''"];
-//            [dictData setObject:strNew forKey:key];
-//        }
-//    }];
-//    return dictData;
-//}
-//
-//- (BOOL)updateDataWithDictionary:(NSMutableDictionary *)dictData tableName:(NSString *)tblName andRefrenceId:(int)refrenceId andRefrenceKey:(NSString *)refrenceKey
-//{
-//    BOOL queryStatus = FALSE;
-//    
-//    if ([dictData valueForKey:@"LocalId"] != Nil) {
-//        [dictData removeObjectForKey:@"LocalId"];
+//        NSString *strQueryForClaim = [NSString stringWithFormat:@"UPDATE tblclaim SET Status = 'N' WHERE  ClaimId = %@ AND RawState = 0 AND Status = 'D' AND CompanyUserId = %@",strClaimId,[[NSUserDefaults standardUserDefaults] valueForKey:KEY_UD_COMPANY_USER_ID]];
+//        [[DatabaseUtil sharedDatabaseInstance] executeUpdateQuery:strQueryForClaim];
+//        
+//        NSString *strQueryForExpense = [NSString stringWithFormat:@"UPDATE tblExpense SET Status = 'N' WHERE  ClaimId = %@ AND RawState = 0 AND Status = 'D' AND CompanyUserId = %@",strClaimId,[[NSUserDefaults standardUserDefaults] valueForKey:KEY_UD_COMPANY_USER_ID]];
+//        [[DatabaseUtil sharedDatabaseInstance] executeUpdateQuery:strQueryForExpense];
+//        
+//        NSString *strQueryForMileage = [NSString stringWithFormat:@"UPDATE tblMileage SET Status = 'N' WHERE  ClaimId = %@ AND RawState = 0 AND Status = 'D' AND CompanyUserId = %@",strClaimId,[[NSUserDefaults standardUserDefaults] valueForKey:KEY_UD_COMPANY_USER_ID]];
+//        [[DatabaseUtil sharedDatabaseInstance] executeUpdateQuery:strQueryForMileage];
+//        
+//        NSString *strQueryForPD = [NSString stringWithFormat:@"UPDATE tblPerDiem SET Status = 'N' WHERE  ClaimId = %@ AND RawState = 0 AND Status = 'D' AND CompanyUserId = %@",strClaimId,[[NSUserDefaults standardUserDefaults] valueForKey:KEY_UD_COMPANY_USER_ID]];
+//        [[DatabaseUtil sharedDatabaseInstance] executeUpdateQuery:strQueryForPD];
+//        
+//        NSString *strQueryForExpenseLine = [NSString stringWithFormat:@"UPDATE tblExpenseLine  SET Status = (SELECT Status from tblExpense C where ExpensesId = tblExpenseLine.ExpensesId and C.CompanyUserId = %@) where tblExpenseLine.CompanyUserId = %@",[[NSUserDefaults standardUserDefaults] valueForKey:KEY_UD_COMPANY_USER_ID],[[NSUserDefaults standardUserDefaults] valueForKey:KEY_UD_COMPANY_USER_ID]];
+//        
+//        [[DatabaseUtil sharedDatabaseInstance] executeUpdateQuery:strQueryForExpenseLine];
 //    }
-//    
-//    NSString *query = [NSString stringWithFormat:@"UPDATE %@ SET %@ WHERE %@ = '%d'",tblName, [self formateDictForUpdate:dictData],refrenceKey, refrenceId];
-//    
-//    queryStatus = [self executeUpdateQuery:query];
-//    
-//    return queryStatus;
 //}
-//
-//- (BOOL)searchDataFromTable:(NSString *)tblName searchtext:(NSString *)txtSearch searchKey:(NSString *)searchKey
-//{
-//    NSString *QUERY_SELECT_INSTALLATION = [NSString stringWithFormat:@"SELECT * FROM  %@  WHERE  %@ like '%@'",tblName,searchKey,txtSearch];
+//- (void)insertPerDiem:(NSArray *)arrPerDiemData andOnlyInsert:(int)intOnlyInsert{
 //    
-//    NSMutableArray *arrData = [self executeSelectQuery:QUERY_SELECT_INSTALLATION];
-//    
-//    if (arrData.count > 0) {
-//        return TRUE;
-//    }else
-//        return FALSE;
-//}
-//
-//- (BOOL)searchDataFromTable:(NSString *)tblName where:(NSString *)txtWhere
-//{
-//    NSString *QUERY_SELECT_INSTALLATION = [NSString stringWithFormat:@"SELECT * FROM  %@  WHERE  %@",tblName,txtWhere];
-//    
-//    NSMutableArray *arrData = [self executeSelectQuery:QUERY_SELECT_INSTALLATION];
-//    
-//    if (arrData.count > 0) {
-//        return TRUE;
-//    }else
-//        return FALSE;
-//}
-//
-//- (BOOL)deleteDataFromTable:(NSString *)tblName andRefrenceId:(int)refrenceId andRefrenceKey:(NSString *)refrenceKey
-//{
-//    BOOL isDeleted = FALSE;
-//    NSString *query = [NSString stringWithFormat: @"Delete FROM %@ WHERE %@ ='%d'",tblName,refrenceKey,refrenceId];
-//    
-//    isDeleted = [self executeUpdateQuery:query];
-//    return isDeleted;
-//}
-//
-//- (BOOL)deleteDataFromTable:(NSString *)tblName
-//{
-//    BOOL isDeleted = FALSE;
-//    NSString *query = [NSString stringWithFormat: @"Delete FROM %@",tblName];
-//    
-//    isDeleted = [self executeUpdateQuery:query];
-//    return isDeleted;
-//}
-//
-//- (BOOL)deleteDataFromTable:(NSString *)tblName AndQuery:(NSString *)strQuery
-//{
-//    BOOL isDeleted = FALSE;
-//    NSString *query = [NSString stringWithFormat: @"Delete FROM %@ %@",tblName,strQuery];
-//    
-//    isDeleted = [self executeUpdateQuery:query];
-//    return isDeleted;
-//}
-//
-//- (NSMutableArray *)selectDataFromTable:(NSString *)tblName whereQuery:(NSString *)whereQuery
-//{
-//    NSString *QUERY_SELECT_INSTALLATION = [NSString stringWithFormat:@"SELECT * FROM  %@ %@",tblName,whereQuery];
-//    
-//    NSMutableArray *arrData = [self executeSelectQuery:QUERY_SELECT_INSTALLATION];
-//    
-//    return arrData;
-//}
-//
-//- (NSMutableArray *)selectDatawhereQuery:(NSString *)whereQuery
-//{
-//    NSString *QUERY_SELECT_INSTALLATION = [NSString stringWithFormat:@"%@",whereQuery];
-//    
-//    NSMutableArray *arrData = [self executeSelectQuery:QUERY_SELECT_INSTALLATION];
-//    
-//    return arrData;
+//    for (int i = 0; i < arrPerDiemData.count; i++) {
+//        
+//        NSMutableDictionary *dictData = [arrPerDiemData objectAtIndex:i];
+//        NSMutableDictionary *dictPerDiem = [[NSMutableDictionary alloc]init];
+//        
+//        [dictPerDiem setValue:[dictData valueForKey:@"PerDiemId"] forKey:@"PerDiemId"];
+//        [dictPerDiem setValue:[dictData valueForKey:@"CompanyUserId"] forKey:@"CompanyUserId"];
+//        [dictPerDiem setValue:[[NSString stringWithFormat:@"%@",[dictData valueForKey:@"Description"]] trimString] forKey:@"Description"];
+//        [dictPerDiem setValue:[dictData valueForKey:@"ClaimId"] forKey:@"ClaimId"];
+//        [dictPerDiem setValue:[dictData valueForKey:@"Status"] forKey:@"Status"];
+//        [dictPerDiem setValue:[[NSString stringWithFormat:@"%@",[dictData valueForKey:@"StartDate"]] trimString] forKey:@"StartDate"];
+//        [dictPerDiem setValue:[[NSString stringWithFormat:@"%@",[dictData valueForKey:@"EndDate"]] trimString] forKey:@"EndDate"];
+//        [dictPerDiem setValue:[dictData valueForKey:@"FromCountryId"] forKey:@"FromCountryId"];
+//        [dictPerDiem setValue:[dictData valueForKey:@"ToCountryId"] forKey:@"ToCountryId"];
+//        [dictPerDiem setValue:[dictData valueForKey:@"ReimbursableRateId"] forKey:@"ReimbursableRateId"];
+//        [dictPerDiem setValue:[dictData valueForKey:@"FullDays"] forKey:@"FullDays"];
+//        [dictPerDiem setValue:[dictData valueForKey:@"PartialDays"] forKey:@"PartialDays"];
+//        [dictPerDiem setValue:[dictData valueForKey:@"NoOfMeals"] forKey:@"NoOfMeals"];
+//        [dictPerDiem setValue:[dictData valueForKey:@"Amount"] forKey:@"Amount"];
+//        [dictPerDiem setValue:[[NSString stringWithFormat:@"%@",[dictData valueForKey:@"Notes"]] trimString] forKey:@"Notes"];
+//        [dictPerDiem setValue:[[NSString stringWithFormat:@"%@",[dictData valueForKey:@"TransactionDate"]] trimString] forKey:@"TransactionDate"];
+//        [dictPerDiem setValue:[dictData valueForKey:@"CreatedBy"] forKey:@"CreatedBy"];
+//        [dictPerDiem setValue:[[NSString stringWithFormat:@"%@",[dictData valueForKey:@"CreatedDate"]] trimString] forKey:@"CreatedDate"];
+//        [dictPerDiem setValue:[[NSString stringWithFormat:@"%@",[dictData valueForKey:@"CreatedIP"]] trimString] forKey:@"CreatedIP"];
+//        [dictPerDiem setValue:[[NSString stringWithFormat:@"%@",[dictData valueForKey:@"ModifiedDate"]] trimString] forKey:@"ModifiedDate"];
+//        [dictPerDiem setValue:[[NSString stringWithFormat:@"%@",[dictData valueForKey:@"ModifiedIP"]] trimString] forKey:@"ModifiedIP"];
+//        [dictPerDiem setValue:[dictData valueForKey:@"RawState"] forKey:@"RawState"];
+//        [dictPerDiem setValue:[dictData valueForKey:@"DeletedBy"] forKey:@"DeletedBy"];
+//        [dictPerDiem setValue:[[NSString stringWithFormat:@"%@",[dictData valueForKey:@"DeletedDate"]] trimString] forKey:@"DeletedDate"];
+//        [dictPerDiem setValue:[[NSString stringWithFormat:@"%@",[dictData valueForKey:@"DeletedIP"]] trimString] forKey:@"DeletedIP"];
+//        [dictPerDiem setValue:[dictData valueForKey:@"LocalPerdimId"] forKey:@"LocalPerdimId"];
+//        [dictPerDiem setValue:[[NSString stringWithFormat:@"%@",[dictData valueForKey:@"AllocationCodeItems"]] trimString] forKey:@"AllocationCodeItems"];
+//        [dictPerDiem setValue:[dictData valueForKey:@"ModifiedBy"] forKey:@"ModifiedBy"];
+//        [dictPerDiem setValue:[dictData valueForKey:@"PerDiemStatus"] forKey:@"PerDiemStatus"];
+//        
+//        BOOL isInserted = FALSE;
+//        
+//        if (intOnlyInsert == 0) {
+//            isInserted = [[DatabaseUtil sharedDatabaseInstance] insertOrUpdateDataWithDictionary:dictPerDiem tableName:TBL_PERDIEM];
+//        }else
+//            isInserted = [[DatabaseUtil sharedDatabaseInstance] insertDataWithDictionary:dictPerDiem tableName:TBL_PERDIEM];
+//        
+//        if (isInserted) {
+//            //            ZDebug(@"yesh");
+//        }else
+//            ZDebug(@"nop -- > TBL_PERDIEM");
+//    }
 //}
 
 @end

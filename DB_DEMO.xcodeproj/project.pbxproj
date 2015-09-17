@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9DE429CB1BAA60FD00904661 /* actor.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DE429CA1BAA60FD00904661 /* actor.m */; };
+		9DE429CE1BAA6D2300904661 /* InAppPurchaseHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DE429CD1BAA6D2300904661 /* InAppPurchaseHelper.m */; };
+		9DE429D11BAA6D3700904661 /* CustomAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DE429D01BAA6D3700904661 /* CustomAnnotation.m */; };
 		9DEF50B11BA561CC000C22F0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DEF50B01BA561CC000C22F0 /* main.m */; };
 		9DEF50BD1BA561CC000C22F0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9DEF50BB1BA561CC000C22F0 /* Main.storyboard */; };
 		9DEF50BF1BA561CC000C22F0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9DEF50BE1BA561CC000C22F0 /* Images.xcassets */; };
@@ -59,6 +62,12 @@
 /* Begin PBXFileReference section */
 		6CAC3379254044B4211C0E83 /* Pods-DB_DEMO.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DB_DEMO.release.xcconfig"; path = "Pods/Target Support Files/Pods-DB_DEMO/Pods-DB_DEMO.release.xcconfig"; sourceTree = "<group>"; };
 		6DA9B48DE1EE5ADBE4C31918 /* Pods-DB_DEMO.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DB_DEMO.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DB_DEMO/Pods-DB_DEMO.debug.xcconfig"; sourceTree = "<group>"; };
+		9DE429C91BAA60FD00904661 /* actor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = actor.h; sourceTree = "<group>"; };
+		9DE429CA1BAA60FD00904661 /* actor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = actor.m; sourceTree = "<group>"; };
+		9DE429CC1BAA6D2300904661 /* InAppPurchaseHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InAppPurchaseHelper.h; sourceTree = "<group>"; };
+		9DE429CD1BAA6D2300904661 /* InAppPurchaseHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InAppPurchaseHelper.m; sourceTree = "<group>"; };
+		9DE429CF1BAA6D3700904661 /* CustomAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomAnnotation.h; sourceTree = "<group>"; };
+		9DE429D01BAA6D3700904661 /* CustomAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomAnnotation.m; sourceTree = "<group>"; };
 		9DEF50AB1BA561CC000C22F0 /* DB_DEMO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DB_DEMO.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DEF50AF1BA561CC000C22F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9DEF50B01BA561CC000C22F0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -235,6 +244,8 @@
 		9DEFF3551BA9C97D00376808 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				9DE429CC1BAA6D2300904661 /* InAppPurchaseHelper.h */,
+				9DE429CD1BAA6D2300904661 /* InAppPurchaseHelper.m */,
 				9DEFF3561BA9C97D00376808 /* AFAPIClient.h */,
 				9DEFF3571BA9C97D00376808 /* AFAPIClient.m */,
 				9DEFF3581BA9C97D00376808 /* AppConstant.h */,
@@ -351,6 +362,8 @@
 		9DEFF3861BA9C97E00376808 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				9DE429C91BAA60FD00904661 /* actor.h */,
+				9DE429CA1BAA60FD00904661 /* actor.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -358,6 +371,8 @@
 		9DEFF3871BA9C97E00376808 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				9DE429CF1BAA6D3700904661 /* CustomAnnotation.h */,
+				9DE429D01BAA6D3700904661 /* CustomAnnotation.m */,
 				9DEFF3B51BA9CD4200376808 /* UIViewController+YIFullScreenScroll.h */,
 				9DEFF3B61BA9CD4200376808 /* UIViewController+YIFullScreenScroll.m */,
 				9DEFF3A71BA9CCE000376808 /* IQTextView.h */,
@@ -519,9 +534,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9DE429D11BAA6D3700904661 /* CustomAnnotation.m in Sources */,
 				9DEFF3B21BA9CCE100376808 /* UITableFooterView.m in Sources */,
 				9DEFF3991BA9C97E00376808 /* ViewUtils.m in Sources */,
 				9DEFF3B01BA9CCE100376808 /* IQTextView.m in Sources */,
+				9DE429CE1BAA6D2300904661 /* InAppPurchaseHelper.m in Sources */,
 				9DEFF3881BA9C97E00376808 /* AFAPIClient.m in Sources */,
 				9DEFF3971BA9C97E00376808 /* TPKeyboardAvoidingTableView.m in Sources */,
 				9DEF50B11BA561CC000C22F0 /* main.m in Sources */,
@@ -543,6 +560,7 @@
 				9DEFF39D1BA9CA2F00376808 /* NSObject+Validation.m in Sources */,
 				9DEFF38A1BA9C97E00376808 /* CommonMethods.m in Sources */,
 				9DEFF3921BA9C97E00376808 /* ImageCacher.m in Sources */,
+				9DE429CB1BAA60FD00904661 /* actor.m in Sources */,
 				9DEFF38E1BA9C97E00376808 /* AFURLResponseSerializerWithData.m in Sources */,
 				9DEFF3931BA9C97E00376808 /* MoviePlayer.m in Sources */,
 				9DEFF3901BA9C97E00376808 /* DALabeledCircularProgressView.m in Sources */,

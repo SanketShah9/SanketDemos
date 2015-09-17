@@ -20,7 +20,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
         NSError *error;
     NSFileManager *fileManager = [[NSFileManager alloc]init];
-    if([fileManager fileExistsAtPath:[self pathForFile:DATABASE]])
+    if(![fileManager fileExistsAtPath:[self pathForFile:DATABASE]])
     {
         BOOL success = [fileManager removeItemAtPath:[self pathForFile:DATABASE] error:&error];
         

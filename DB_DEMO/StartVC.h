@@ -9,5 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface StartVC : UIViewController
-
+{
+    IBOutlet UITextView *textxQuery;
+    IBOutlet UIButton *btnDone;
+    
+}
+-(IBAction)donePressed:(id)sender;
 @end
