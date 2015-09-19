@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		9D61F49C1BAC603F00895D91 /* SP_HomeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D61F49B1BAC603F00895D91 /* SP_HomeVC.m */; };
 		9D61F49E1BAC609300895D91 /* SP_TableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D61F49D1BAC609300895D91 /* SP_TableView.m */; };
+		9D61F4A91BACE09F00895D91 /* LocationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D61F4A31BACE09F00895D91 /* LocationHelper.m */; };
+		9D61F4AE1BACE36D00895D91 /* ApplicationData.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D61F4AD1BACE36D00895D91 /* ApplicationData.m */; };
 		9DE429CB1BAA60FD00904661 /* actor.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DE429CA1BAA60FD00904661 /* actor.m */; };
 		9DE429CE1BAA6D2300904661 /* InAppPurchaseHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DE429CD1BAA6D2300904661 /* InAppPurchaseHelper.m */; };
 		9DE429D11BAA6D3700904661 /* CustomAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DE429D01BAA6D3700904661 /* CustomAnnotation.m */; };
@@ -67,6 +69,10 @@
 		9D61F49A1BAC603000895D91 /* SP_TableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SP_TableView.h; sourceTree = "<group>"; };
 		9D61F49B1BAC603F00895D91 /* SP_HomeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SP_HomeVC.m; sourceTree = "<group>"; };
 		9D61F49D1BAC609300895D91 /* SP_TableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SP_TableView.m; sourceTree = "<group>"; };
+		9D61F4A21BACE09F00895D91 /* LocationHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationHelper.h; sourceTree = "<group>"; };
+		9D61F4A31BACE09F00895D91 /* LocationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationHelper.m; sourceTree = "<group>"; };
+		9D61F4AC1BACE36D00895D91 /* ApplicationData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplicationData.h; sourceTree = "<group>"; };
+		9D61F4AD1BACE36D00895D91 /* ApplicationData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplicationData.m; sourceTree = "<group>"; };
 		9DE429C91BAA60FD00904661 /* actor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = actor.h; sourceTree = "<group>"; };
 		9DE429CA1BAA60FD00904661 /* actor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = actor.m; sourceTree = "<group>"; };
 		9DE429CC1BAA6D2300904661 /* InAppPurchaseHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InAppPurchaseHelper.h; sourceTree = "<group>"; };
@@ -183,6 +189,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		9D61F49F1BACE09F00895D91 /* LocationHelper */ = {
+			isa = PBXGroup;
+			children = (
+				9D61F4A21BACE09F00895D91 /* LocationHelper.h */,
+				9D61F4A31BACE09F00895D91 /* LocationHelper.m */,
+			);
+			path = LocationHelper;
+			sourceTree = "<group>";
+		};
 		9DEF50A21BA561CC000C22F0 = {
 			isa = PBXGroup;
 			children = (
@@ -260,6 +275,8 @@
 				9DEFF35C1BA9C97D00376808 /* CommonMethods.m */,
 				9DEFF35D1BA9C97D00376808 /* DatabaseUtil.h */,
 				9DEFF35E1BA9C97D00376808 /* DatabaseUtil.m */,
+				9D61F4AC1BACE36D00895D91 /* ApplicationData.h */,
+				9D61F4AD1BACE36D00895D91 /* ApplicationData.m */,
 				9DEFF35F1BA9C97D00376808 /* WebService.h */,
 			);
 			path = Common;
@@ -277,6 +294,7 @@
 		9DEFF3611BA9C97D00376808 /* Extra Classes */ = {
 			isa = PBXGroup;
 			children = (
+				9D61F49F1BACE09F00895D91 /* LocationHelper */,
 				9DEFF3621BA9C97D00376808 /* AFAPIClient */,
 				9DEFF3691BA9C97D00376808 /* DACircularProgress */,
 				9DEFF36E1BA9C97D00376808 /* Download Manager */,
@@ -553,6 +571,7 @@
 				9DEFF3891BA9C97E00376808 /* AppDelegate.m in Sources */,
 				9DEFF3951BA9C97E00376808 /* SVProgressHUD.m in Sources */,
 				9D61F49C1BAC603F00895D91 /* SP_HomeVC.m in Sources */,
+				9D61F4AE1BACE36D00895D91 /* ApplicationData.m in Sources */,
 				9DEFF3911BA9C97E00376808 /* DownloadManager.m in Sources */,
 				9DEFF38D1BA9C97E00376808 /* AFDownloadRequestOperation.m in Sources */,
 				9DEFF3A31BA9CA6400376808 /* NSAttributedString+Validation.m in Sources */,
@@ -574,6 +593,7 @@
 				9DEFF38E1BA9C97E00376808 /* AFURLResponseSerializerWithData.m in Sources */,
 				9DEFF3931BA9C97E00376808 /* MoviePlayer.m in Sources */,
 				9DEFF3901BA9C97E00376808 /* DALabeledCircularProgressView.m in Sources */,
+				9D61F4A91BACE09F00895D91 /* LocationHelper.m in Sources */,
 				9DEFF3A61BA9CACF00376808 /* NSDate+Formatting.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

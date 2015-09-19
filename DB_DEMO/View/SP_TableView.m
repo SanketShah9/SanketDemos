@@ -20,7 +20,10 @@
 -(id)initWithCoder:(NSCoder *)aDecoder{
     self = [super initWithCoder:aDecoder];
     if (self) {
-        viewFooter = [CommonMethods getFooterView];
+        viewFooter = [[[NSBundle mainBundle]loadNibNamed:@"UITableFooterView" owner:self options:nil] objectAtIndex:0];;
+        viewFooter.indicator.color = [UIColor blackColor];
+        viewFooter.backgroundColor = [UIColor whiteColor];
+        //tblView registerNib:[UINib nibWithNibName:@"CCell_Home" bundle:nil] forCellReuseIdentifier:@"CCell_Home"];
         self.refreshControl = [[UIRefreshControl alloc] init];
         [self insertSubview:self.refreshControl atIndex:0];
         

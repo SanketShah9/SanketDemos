@@ -28,7 +28,7 @@ static DatabaseUtil *databaseUtil = nil;
         FMResultSet *rs = [APPDELEGATE.db executeQuery:query];
         
         while ([rs next]) {
-            [arrResultDict addObject:[[NSMutableDictionary alloc] initWithDictionary:[rs resultDict]]];
+            [arrResultDict addObject:[[NSMutableDictionary alloc] initWithDictionary:[rs resultDictionary]]];
         }
     }
     @catch (NSException *exception) {
