@@ -14,6 +14,7 @@
 		9DE429CB1BAA60FD00904661 /* actor.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DE429CA1BAA60FD00904661 /* actor.m */; };
 		9DE429CE1BAA6D2300904661 /* InAppPurchaseHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DE429CD1BAA6D2300904661 /* InAppPurchaseHelper.m */; };
 		9DE429D11BAA6D3700904661 /* CustomAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DE429D01BAA6D3700904661 /* CustomAnnotation.m */; };
+		9DEA08DC1BACF725009F51C2 /* TestCodes.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 9DEA08DB1BACF725009F51C2 /* TestCodes.rtf */; };
 		9DEF50B11BA561CC000C22F0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DEF50B01BA561CC000C22F0 /* main.m */; };
 		9DEF50BD1BA561CC000C22F0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9DEF50BB1BA561CC000C22F0 /* Main.storyboard */; };
 		9DEF50BF1BA561CC000C22F0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9DEF50BE1BA561CC000C22F0 /* Images.xcassets */; };
@@ -79,6 +80,7 @@
 		9DE429CD1BAA6D2300904661 /* InAppPurchaseHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InAppPurchaseHelper.m; sourceTree = "<group>"; };
 		9DE429CF1BAA6D3700904661 /* CustomAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomAnnotation.h; sourceTree = "<group>"; };
 		9DE429D01BAA6D3700904661 /* CustomAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomAnnotation.m; sourceTree = "<group>"; };
+		9DEA08DB1BACF725009F51C2 /* TestCodes.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = TestCodes.rtf; sourceTree = "<group>"; };
 		9DEF50AB1BA561CC000C22F0 /* DB_DEMO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DB_DEMO.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DEF50AF1BA561CC000C22F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9DEF50B01BA561CC000C22F0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -264,6 +266,7 @@
 		9DEFF3551BA9C97D00376808 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				9DEA08DB1BACF725009F51C2 /* TestCodes.rtf */,
 				9DE429CC1BAA6D2300904661 /* InAppPurchaseHelper.h */,
 				9DE429CD1BAA6D2300904661 /* InAppPurchaseHelper.m */,
 				9DEFF3561BA9C97D00376808 /* AFAPIClient.h */,
@@ -507,6 +510,7 @@
 				9DEFF3B31BA9CCE100376808 /* UITableFooterView.xib in Resources */,
 				9DEFF3541BA9C7C500376808 /* Sakila.sqlite in Resources */,
 				9DEF50BD1BA561CC000C22F0 /* Main.storyboard in Resources */,
+				9DEA08DC1BACF725009F51C2 /* TestCodes.rtf in Resources */,
 				9DEF50C21BA561CC000C22F0 /* LaunchScreen.xib in Resources */,
 				9DEFF3941BA9C97E00376808 /* SVProgressHUD.bundle in Resources */,
 				9DEF50BF1BA561CC000C22F0 /* Images.xcassets in Resources */,

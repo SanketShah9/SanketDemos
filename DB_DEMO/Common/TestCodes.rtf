@@ -1,0 +1,143 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1348\cocoasubrtf170
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 Menlo-Regular;}
+{\colortbl;\red255\green255\blue255;\red170\green13\blue145;\red46\green13\blue110;\red100\green56\blue32;
+\red196\green26\blue22;\red92\green38\blue153;\red0\green116\blue0;\red28\green0\blue207;\red63\green110\blue116;
+\red38\green71\blue75;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww22940\viewh11880\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+
+\f0\fs24 \cf0 Push Notification\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+\pard\tx674\pardeftab674\pardirnatural
+
+\f1\fs28 \cf2 \CocoaLigature0 if\cf0  ([application \cf3 respondsToSelector\cf0 :\cf2 @selector\cf0 (registerUserNotificationSettings:)]) \{\
+        \cf2 if\cf0  (\cf4 SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO\cf0 (\cf5 @"8"\cf0 )) \{\
+            \cf6 UIUserNotificationSettings\cf0  *settings = [\cf6 UIUserNotificationSettings\cf0  \cf3 settingsForTypes\cf0 :(\cf3 UIRemoteNotificationTypeBadge\cf0 \
+                                                                                                 |\cf3 UIRemoteNotificationTypeSound\cf0 \
+                                                                                                 |\cf3 UIRemoteNotificationTypeAlert\cf0 ) \cf3 categories\cf0 :\cf2 nil\cf0 ];\
+            [application \cf3 registerUserNotificationSettings\cf0 :settings];\
+        \}\
+    \} \cf2 else\cf0  \{\
+        \cf6 UIRemoteNotificationType\cf0  myTypes = \cf3 UIRemoteNotificationTypeBadge\cf0  | \cf3 UIRemoteNotificationTypeAlert\cf0  | \cf3 UIRemoteNotificationTypeSound\cf0 ;\
+        [application \cf3 registerForRemoteNotificationTypes\cf0 :myTypes];\
+    \}\
+\cf6 NSDictionary\cf0  *remoteNotif = [launchOptions \cf3 objectForKey\cf0 :\cf6 UIApplicationLaunchOptionsRemoteNotificationKey\cf0 ];\
+    \cf2 if\cf0  (remoteNotif) \{\
+\cf7 //            NSString *str = [NSString stringWithFormat:@"%@",[launchOptions valueForKey:UIApplicationLaunchOptionsRemoteNotificationKey]];\cf0 \
+\cf7 //         SHOW_ALERT(@"aps", str);\cf0 \
+        [\cf2 self\cf0  \cf3 application\cf0 :application \cf3 didReceiveRemoteNotification\cf0 :launchOptions[\cf6 UIApplicationLaunchOptionsRemoteNotificationKey\cf0 ]];\
+    \}\
+    \
+[[\cf6 UIApplication\cf0  \cf3 sharedApplication\cf0 ] \cf3 setStatusBarHidden\cf0 :\cf2 NO\cf0  \cf3 withAnimation\cf0 :\cf3 UIStatusBarAnimationFade\cf0 ];\
+    [[\cf6 UINavigationBar\cf0  \cf3 appearance\cf0 ] \cf3 setBarTintColor\cf0 :\cf4 BARTINTCOLOR\cf0 ];\
+    [[\cf6 UINavigationBar\cf0  \cf3 appearance\cf0 ] \cf3 setBackgroundColor\cf0 :\cf4 BARTINTCOLOR\cf0 ];\
+     [[\cf6 UIApplication\cf0  \cf3 sharedApplication\cf0 ] \cf3 setStatusBarStyle\cf0 :\cf3 UIStatusBarStyleLightContent\cf0  \cf3 animated\cf0 :\cf2 YES\cf0 ];\
+    [[\cf6 UINavigationBar\cf0  \cf3 appearance\cf0 ] \cf3 setTitleTextAttributes\cf0 :\cf8 @\{\cf0  \cf6 NSForegroundColorAttributeName\cf0 : \cf4 TITLECOLOR\cf0 ,\cf6 NSFontAttributeName\cf0 :\cf4 kMJCustom\cf0 (\cf4 kMJHelveticaNeueLight\cf0 ,\cf8 17\cf0 )\cf8 \}\cf0 ];\
+    [[\cf6 UINavigationBar\cf0  \cf3 appearance\cf0 ] \cf3 setBackgroundImage\cf0 :[\cf6 UIImage\cf0  \cf3 imageNamed\cf0 :\cf5 @"navbar-white"\cf0 ] \cf3 forBarMetrics\cf0 :\cf3 UIBarMetricsDefault\cf0 ];\
+\cf4 #ifdef __IPHONE_8_0\
+\cf0 - (\cf2 void\cf0 )application:(\cf6 UIApplication\cf0  *)application didRegisterUserNotificationSettings:(\cf6 UIUserNotificationSettings\cf0  *)notificationSettings\
+\{\
+    \cf7 //register to receive notifications\cf0 \
+    [application \cf3 registerForRemoteNotifications\cf0 ];\
+\}\
+\
+- (\cf2 void\cf0 )application:(\cf6 UIApplication\cf0  *)application handleActionWithIdentifier:(\cf6 NSString\cf0  *)identifier forRemoteNotification:(\cf6 NSDictionary\cf0  *)userInfo completionHandler:(\cf2 void\cf0 (^)())completionHandler\
+\{\
+    \cf7 //handle the actions\cf0 \
+    \cf2 if\cf0  ([identifier \cf3 isEqualToString\cf0 :\cf5 @"declineAction"\cf0 ])\{\
+       \cf7 // [self showDeclinedAlert];\cf0 \
+    \}\
+    \cf2 else\cf0  \cf2 if\cf0  ([identifier \cf3 isEqualToString\cf0 :\cf5 @"answerAction"\cf0 ])\{\
+    \}\
+\}\
+\cf4 #endif\
+\cf0 - (\cf2 void\cf0 )application:(\cf6 UIApplication\cf0  *)application didRegisterForRemoteNotificationsWithDeviceToken:(\cf6 NSData\cf0  *)deviceToken\{\
+    \cf6 NSString\cf0  *token = [[deviceToken \cf3 description\cf0 ] \cf3 stringByTrimmingCharactersInSet\cf0 : [\cf6 NSCharacterSet\cf0  \cf3 characterSetWithCharactersInString\cf0 :\cf5 @"<>"\cf0 ]];\
+    token = [token \cf3 stringByReplacingOccurrencesOfString\cf0 :\cf5 @" "\cf0  \cf3 withString\cf0 :\cf5 @""\cf0 ];\
+    \cf2 if\cf0  (token.\cf6 length\cf0 >\cf8 0\cf0 ) \{\
+        \cf4 AppSingleton\cf0 .\cf9 deviceToken\cf0  = [\cf6 NSMutableString\cf0  \cf3 stringWithString\cf0 :token];\
+    \}\
+\}\
+\
+-(\cf2 void\cf0 )application:(\cf6 UIApplication\cf0  *)application didFailToRegisterForRemoteNotificationsWithError:(\cf6 NSError\cf0  *)error\{\
+\cf4 #if(TARGET_IPHONE_SIMULATOR)\
+\cf0     AppSingleton.deviceToken = [NSMutableString stringWithString:\cf5 @"1"\cf0 ];\
+\cf4 #endif\
+#if !(TARGET_IPHONE_SIMULATOR)\
+\cf0     \cf7 //[UIApplication isRegisteredForRemoteNotifications]\cf0 \
+    \cf2 if\cf0  (\cf4 SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO\cf0 (\cf5 @"8"\cf0 )) \{\
+        \cf2 if\cf0  (![[\cf6 UIApplication\cf0  \cf3 sharedApplication\cf0 ]\cf3 isRegisteredForRemoteNotifications\cf0 ]) \{\
+             \cf4 NSLog\cf0 (\cf5 @"User doesn't want to receive push-notifications"\cf0 );\
+        \}\
+    \}\
+    \cf2 else\cf0 \{\
+    \cf6 UIRemoteNotificationType\cf0  status = [[\cf6 UIApplication\cf0  \cf3 sharedApplication\cf0 ] \cf3 enabledRemoteNotificationTypes\cf0 ];\
+    \cf2 if\cf0  (status == \cf3 UIRemoteNotificationTypeNone\cf0 )\
+    \{\
+        \cf4 NSLog\cf0 (\cf5 @"User doesn't want to receive push-notifications"\cf0 );\
+       \cf7 // [self showDeclinedAlert];\cf0 \
+    \}\}\
+\cf4 #endif\
+\cf0 \}\
+-(\cf2 void\cf0 )showDeclinedAlert\{\
+    \cf2 static\cf0  \cf6 dispatch_once_t\cf0  onceToken;\
+    \cf4 dispatch_once\cf0 (&onceToken, ^\{\
+        \cf6 UIAlertView\cf0  *alertView = [[\cf6 UIAlertView\cf0  \cf3 alloc\cf0 ] \cf3 initWithTitle\cf0 :\cf4 AppName\cf0  \cf3 message\cf0 :\cf5 @"Enabling remote notification will give you feeds and messages of your status and users. \\n Please enable access in Settings > Notification > goGeo."\cf0  \cf3 delegate\cf0 :\cf2 nil\cf0  \cf3 cancelButtonTitle\cf0 :\cf2 nil\cf0  \cf3 otherButtonTitles\cf0 :\cf5 @"Okay"\cf0 , \cf2 nil\cf0 ];\
+        \cf3 dispatch_async\cf0 (\cf3 dispatch_get_main_queue\cf0 (), ^\{\
+            [alertView \cf3 show\cf0 ];\
+        \});\
+    \});\
+\}
+\f0\fs24 \CocoaLigature1 \
+
+\f1\fs28 \CocoaLigature0 -(\cf2 void\cf0 )application:(\cf6 UIApplication\cf0  *)application didReceiveRemoteNotification:(\cf6 NSDictionary\cf0  *)userInfo\{\
+    \cf6 NSArray\cf0  *arrNoti = [[[userInfo \cf3 objectForKey\cf0 :\cf5 @"aps"\cf0 ]\cf3 objectForKey\cf0 :\cf5 @"alert"\cf0 ]\cf3 objectForKey\cf0 :\cf5 @"loc-args"\cf0 ];
+\f0\fs24 \CocoaLigature1 \
+
+\f1\fs28 \CocoaLigature0 \}\
+\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+Versioniing\
+\cf6 NSString\cf0  *version = [[[\cf6 NSBundle\cf0  \cf3 mainBundle\cf0 ] \cf3 infoDictionary\cf0 ] \cf3 objectForKey\cf0 :\cf5 @"CFBundleShortVersionString"\cf0 ];\
+    \
+    \cf6 NSError\cf0  *error;\
+    \
+    \cf2 if\cf0  ([[\cf6 NSUserDefaults\cf0  \cf3 standardUserDefaults\cf0 ] \cf3 valueForKey\cf0 :\cf4 KEY_LAST_VERSION\cf0 ] == \cf2 Nil\cf0  ) \{\
+        \
+        \cf6 NSFileManager\cf0  *fileManager = [[\cf6 NSFileManager\cf0  \cf3 alloc\cf0 ]\cf3 init\cf0 ];\
+        \cf2 if\cf0 ([fileManager \cf3 fileExistsAtPath\cf0 :[\cf2 self\cf0  \cf10 pathForFile\cf0 :\cf4 DATABASE\cf0 ]])\
+        \{\
+            \cf2 BOOL\cf0  success = [fileManager \cf3 removeItemAtPath\cf0 :[\cf2 self\cf0  \cf10 pathForFile\cf0 :\cf4 DATABASE\cf0 ] \cf3 error\cf0 :&error];\
+            \
+            \cf2 if\cf0  (success) \{\
+                \cf3 NSLog\cf0 (\cf5 @"Copy Databse"\cf0 );\
+                \cf6 NSString\cf0  *fromPath = [[[\cf6 NSBundle\cf0  \cf3 mainBundle\cf0 ] \cf3 resourcePath\cf0 ] \cf3 stringByAppendingPathComponent\cf0 :\cf4 DATABASE\cf0 ];\
+                [fileManager \cf3 copyItemAtPath\cf0 :fromPath \cf3 toPath\cf0 :[\cf2 self\cf0  \cf10 pathForFile\cf0 :\cf4 DATABASE\cf0 ] \cf3 error\cf0 :\cf2 nil\cf0 ];\
+            \}\
+        \}\
+        \cf7 // Database change\cf0 \
+        [[\cf6 NSUserDefaults\cf0  \cf3 standardUserDefaults\cf0 ] \cf3 setValue\cf0 :version \cf3 forKey\cf0 :\cf4 KEY_LAST_VERSION\cf0 ];\
+    \}\
+    \
+    \cf2 if\cf0  ([version \cf3 compare\cf0 :[[\cf6 NSUserDefaults\cf0  \cf3 standardUserDefaults\cf0 ] \cf3 valueForKey\cf0 :\cf4 KEY_LAST_VERSION\cf0 ] \cf3 options\cf0 :\cf3 NSNumericSearch\cf0 ] == \cf3 NSOrderedDescending\cf0 ) \{\
+        \
+        \cf7 // Database change\cf0 \
+        \cf6 NSFileManager\cf0  *fileManager = [[\cf6 NSFileManager\cf0  \cf3 alloc\cf0 ]\cf3 init\cf0 ];\
+        \cf2 if\cf0 ([fileManager \cf3 fileExistsAtPath\cf0 :[\cf2 self\cf0  \cf10 pathForFile\cf0 :\cf4 DATABASE\cf0 ]])\
+        \{\
+            \cf2 BOOL\cf0  success = [fileManager \cf3 removeItemAtPath\cf0 :[\cf2 self\cf0  \cf10 pathForFile\cf0 :\cf4 DATABASE\cf0 ] \cf3 error\cf0 :&error];\
+            \
+            \cf2 if\cf0  (success) \{\
+                \cf3 NSLog\cf0 (\cf5 @"Copy Databse"\cf0 );\
+                \cf6 NSString\cf0  *fromPath = [[[\cf6 NSBundle\cf0  \cf3 mainBundle\cf0 ] \cf3 resourcePath\cf0 ] \cf3 stringByAppendingPathComponent\cf0 :\cf4 DATABASE\cf0 ];\
+                [fileManager \cf3 copyItemAtPath\cf0 :fromPath \cf3 toPath\cf0 :[\cf2 self\cf0  \cf10 pathForFile\cf0 :\cf4 DATABASE\cf0 ] \cf3 error\cf0 :\cf2 nil\cf0 ];\
+            \}\
+        \}\
+        [[\cf6 NSUserDefaults\cf0  \cf3 standardUserDefaults\cf0 ] \cf3 setValue\cf0 :version \cf3 forKey\cf0 :\cf4 KEY_LAST_VERSION\cf0 ];\
+    \}\
+\
+{\field{\*\fldinst{HYPERLINK "http://www.raywenderlich.com/86136/lightweight-migrations-core-data-tutorial"}}{\fldrslt http://www.raywenderlich.com/86136/lightweight-migrations-core-data-tutorial}}\
+\
+{\field{\*\fldinst{HYPERLINK "https://github.com/layerhq/FMDBMigrationManager"}}{\fldrslt https://github.com/layerhq/FMDBMigrationManager}}\
+    \
+}
