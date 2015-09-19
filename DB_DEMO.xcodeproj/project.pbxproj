@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9D61F49C1BAC603F00895D91 /* SP_HomeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D61F49B1BAC603F00895D91 /* SP_HomeVC.m */; };
+		9D61F49E1BAC609300895D91 /* SP_TableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D61F49D1BAC609300895D91 /* SP_TableView.m */; };
 		9DE429CB1BAA60FD00904661 /* actor.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DE429CA1BAA60FD00904661 /* actor.m */; };
 		9DE429CE1BAA6D2300904661 /* InAppPurchaseHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DE429CD1BAA6D2300904661 /* InAppPurchaseHelper.m */; };
 		9DE429D11BAA6D3700904661 /* CustomAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DE429D01BAA6D3700904661 /* CustomAnnotation.m */; };
@@ -62,6 +64,9 @@
 /* Begin PBXFileReference section */
 		6CAC3379254044B4211C0E83 /* Pods-DB_DEMO.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DB_DEMO.release.xcconfig"; path = "Pods/Target Support Files/Pods-DB_DEMO/Pods-DB_DEMO.release.xcconfig"; sourceTree = "<group>"; };
 		6DA9B48DE1EE5ADBE4C31918 /* Pods-DB_DEMO.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DB_DEMO.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DB_DEMO/Pods-DB_DEMO.debug.xcconfig"; sourceTree = "<group>"; };
+		9D61F49A1BAC603000895D91 /* SP_TableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SP_TableView.h; sourceTree = "<group>"; };
+		9D61F49B1BAC603F00895D91 /* SP_HomeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SP_HomeVC.m; sourceTree = "<group>"; };
+		9D61F49D1BAC609300895D91 /* SP_TableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SP_TableView.m; sourceTree = "<group>"; };
 		9DE429C91BAA60FD00904661 /* actor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = actor.h; sourceTree = "<group>"; };
 		9DE429CA1BAA60FD00904661 /* actor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = actor.m; sourceTree = "<group>"; };
 		9DE429CC1BAA6D2300904661 /* InAppPurchaseHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InAppPurchaseHelper.h; sourceTree = "<group>"; };
@@ -371,6 +376,9 @@
 		9DEFF3871BA9C97E00376808 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				9D61F49A1BAC603000895D91 /* SP_TableView.h */,
+				9D61F49D1BAC609300895D91 /* SP_TableView.m */,
+				9D61F49B1BAC603F00895D91 /* SP_HomeVC.m */,
 				9DE429CF1BAA6D3700904661 /* CustomAnnotation.h */,
 				9DE429D01BAA6D3700904661 /* CustomAnnotation.m */,
 				9DEFF3B51BA9CD4200376808 /* UIViewController+YIFullScreenScroll.h */,
@@ -544,12 +552,14 @@
 				9DEF50B11BA561CC000C22F0 /* main.m in Sources */,
 				9DEFF3891BA9C97E00376808 /* AppDelegate.m in Sources */,
 				9DEFF3951BA9C97E00376808 /* SVProgressHUD.m in Sources */,
+				9D61F49C1BAC603F00895D91 /* SP_HomeVC.m in Sources */,
 				9DEFF3911BA9C97E00376808 /* DownloadManager.m in Sources */,
 				9DEFF38D1BA9C97E00376808 /* AFDownloadRequestOperation.m in Sources */,
 				9DEFF3A31BA9CA6400376808 /* NSAttributedString+Validation.m in Sources */,
 				9DEFF3981BA9C97E00376808 /* JRSwizzle.m in Sources */,
 				9DEFF3A01BA9CA4E00376808 /* NSString+Validation.m in Sources */,
 				9DEFF3961BA9C97E00376808 /* TPKeyboardAvoidingScrollView.m in Sources */,
+				9D61F49E1BAC609300895D91 /* SP_TableView.m in Sources */,
 				9DEFF38F1BA9C97E00376808 /* DACircularProgressView.m in Sources */,
 				9DEFF38B1BA9C97E00376808 /* DatabaseUtil.m in Sources */,
 				9DEFF3B71BA9CD4200376808 /* UIViewController+YIFullScreenScroll.m in Sources */,
